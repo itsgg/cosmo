@@ -1,5 +1,5 @@
 class Block {
-  constructor(timestamp, lastHash, hash, data) {
+  constructor({ timestamp, lastHash, hash, data }) {
     this.timestamp = timestamp;
     this.lastHash = lastHash;
     this.hash = hash;
@@ -7,3 +7,4 @@ class Block {
   }
 }
 
+module.exports = Block;
