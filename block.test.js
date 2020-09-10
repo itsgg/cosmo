@@ -7,10 +7,19 @@ describe("Block", () => {
   const data = ["Blockchain", "Test Data"];
   const block = new Block({ timestamp, lastHash, hash, data });
 
-  it("has required properties", () => {
+  it("has timestamp property", () => {
     expect(block.timestamp).toEqual(timestamp);
+  });
+
+  it("has lashHash property", () => {
     expect(block.lastHash).toEqual(lastHash);
+  });
+
+  it("has hash property", () => {
     expect(block.hash).toEqual(hash);
+  });
+
+  it("has data property", () => {
     expect(block.data).toEqual(data);
   });
 });
