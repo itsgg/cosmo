@@ -1,8 +1,15 @@
+const cryptoHash = require("./crypto-hash");
+
+const timestamp = 1;
+const lastHash = null;
+const data = [];
+const hash = cryptoHash(timestamp, lastHash, data);
+
 const GENESIS_DATA = {
-  timestamp: 1,
-  lastHash: null,
-  hash: "hash-one",
-  data: []
+  timestamp,
+  lastHash,
+  hash,
+  data,
 };
 
-module.exports = { GENESIS_DATA }
+module.exports = { GENESIS_DATA };
