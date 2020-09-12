@@ -12,14 +12,20 @@ class Blockchain {
     }
 
     for (let i = 1; i < chain.length; i++) {
-      const { timestamp, lastHash, hash, data } = chain[i];
+      const { timestamp, lastHash, hash, data, nonce, difficulty } = chain[i];
       const expectedLastHash = chain[i - 1].hash;
 
       if (lastHash !== expectedLastHash) {
         return false;
       }
 
-      const expectedHash = cryptoHash(timestamp, lastHash, data);
+      const expectedHash = cryptoHash(
+        timestamp,
+        lastHash,
+        data,
+        nonce,
+        difficulty
+      );
       if (hash !== expectedHash) {
         return false;
       }
