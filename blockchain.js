@@ -45,6 +45,10 @@ class Blockchain {
     this.chain.push(newBlock);
   }
 
+  get lastBlock() {
+    return this.chain[this.chain.length - 1];
+  }
+
   replace(chain) {
     if (chain.length <= this.chain.length) {
       console.error("The incoming chain must be longer");

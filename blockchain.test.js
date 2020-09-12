@@ -18,11 +18,19 @@ describe("Blockchain", () => {
     expect(blockchain.chain[0]).toEqual(Block.genesis());
   });
 
+  describe("lastBlock()", () => {
+    it("adds a new block to the chain", () => {
+      const data = "foobar";
+      blockchain.addBlock({ data });
+      expect(blockchain.lastBlock).toEqual(blockchain.chain[blockchain.chain.length - 1]);
+    });
+  });
+
   describe("addBlock()", () => {
     it("adds a new block to the chain", () => {
       const data = "foobar";
       blockchain.addBlock({ data });
-      expect(blockchain.chain[blockchain.chain.length - 1].data).toEqual(data);
+      expect(blockchain.lastBlock.data).toEqual(data);
     });
   });
 
