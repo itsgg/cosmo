@@ -1,6 +1,7 @@
 const cryptoHash = require("./crypto-hash");
 
-const INITIAL_DIFFICULTY = 3; 
+const MINE_RATE = 1000; // 1 Second
+const INITIAL_DIFFICULTY = 3;
 
 const timestamp = 1;
 const lastHash = null;
@@ -19,4 +20,4 @@ const GENESIS_DATA = {
   difficulty,
 };
 
-module.exports = { GENESIS_DATA };
+module.exports = { MINE_RATE, GENESIS_DATA };
