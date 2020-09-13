@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 const Blockchain = require("./blockchain");
-const PubSub = require("./util/pubsub");
+const { PubSub } = require("./util");
 
 const DEFAULT_PORT = 3000;
 
@@ -33,7 +33,7 @@ const syncChains = () => {
     (error, response, body) => {
       if (!error && response.statusCode === 200) {
         const rootChain = JSON.parse(body);
-        console.log('replace chain on a sync with', rootChain);
+        console.log("replace chain on a sync with", rootChain);
         blockchain.replace(rootChain);
       }
     }

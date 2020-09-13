@@ -3,9 +3,11 @@ const ec = new EC("secp256k1");
 
 const cryptoHash = require("./crypto-hash");
 
+const PubSub = require("./pubsub");
+
 const verifySignature = ({ publicKey, data, signature }) => {
   const keyFromPublic = ec.keyFromPublic(publicKey, "hex");
   return keyFromPublic.verify(cryptoHash(data), signature);
 };
 
-module.exports = { ec, verifySignature, cryptoHash };
+module.exports = { ec, verifySignature, cryptoHash, PubSub };
