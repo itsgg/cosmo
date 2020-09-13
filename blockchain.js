@@ -27,6 +27,7 @@ class Blockchain {
         nonce,
         difficulty
       );
+
       if (hash !== expectedHash) {
         return false;
       }
