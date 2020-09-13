@@ -1,4 +1,4 @@
-const cryptoHash = require("./crypto-hash");
+const cryptoHash = require("./util/crypto-hash");
 
 const MINE_RATE = 1000; // 1 Second
 const INITIAL_DIFFICULTY = 3;
