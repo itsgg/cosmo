@@ -5,6 +5,7 @@ const Blockchain = require("./blockchain");
 const { PubSub } = require("./util");
 const TransactionPool = require("./wallet/transaction-pool");
 const Wallet = require("./wallet");
+const TransactionMiner = require("./util/transaction-miner");
 
 const DEFAULT_PORT = 3000;
 
@@ -13,6 +14,7 @@ const blockchain = new Blockchain();
 const transactionPool = new TransactionPool();
 const wallet = new Wallet();
 const pubsub = new PubSub({ blockchain, transactionPool });
+const transactionMinor = new TransactionMiner({ blockchain, wallet, pubsub });
 
 const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
 
@@ -27,7 +29,7 @@ app.post("/api/mine", (req, res) => {
   const { data } = req.body;
   blockchain.addBlock({ data });
   pubsub.broadcastChain();
-  res.json(blockchain.chain);
+  res.redirect("/api/blocks");
 });
 
 app.post("/api/transact", (req, res) => {
@@ -53,6 +55,11 @@ app.get("/api/transaction-pool-map", (req, res) => {
   res.json(transactionPool.transactionMap);
 });
 
+app.get("/api/mine-transactions", (req, res) => {
+  transactionMinor.mine();
+  res.redirect("/api/blocks");
+});
+
 const syncWithRootState = () => {
   request(
     {
@@ -74,7 +81,10 @@ const syncWithRootState = () => {
     (error, response, body) => {
       if (!error && response.statusCode === 200) {
         const rootTransactionPoolMap = JSON.parse(body);
-        console.log("replace transaction pool on a sync with", rootTransactionPoolMap);
+        console.log(
+          "replace transaction pool on a sync with",
+          rootTransactionPoolMap
+        );
         transactionPool.setMap(rootTransactionPoolMap);
       }
     }
