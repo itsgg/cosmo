@@ -31,3 +31,7 @@ npm run dev
 ```bash
 npm run dev-peer
 ```
+
+# API documentation
+
+https://documenter.getpostman.com/view/12247/TVK76LEr
