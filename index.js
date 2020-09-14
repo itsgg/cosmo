@@ -14,15 +14,14 @@ const blockchain = new Blockchain();
 const transactionPool = new TransactionPool();
 const wallet = new Wallet();
 const pubsub = new PubSub({ blockchain, transactionPool });
-const transactionMinor = new TransactionMiner({ blockchain, wallet, pubsub });
+const transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
 
 const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
 
 app.use(bodyParser.json());
 
 app.get("/api/blocks", (req, res) => {
-  let chain = blockchain.chain;
-  res.json({ chain });
+  res.json(blockchain.chain);
 });
 
 app.post("/api/mine", (req, res) => {
@@ -56,7 +55,7 @@ app.get("/api/transaction-pool-map", (req, res) => {
 });
 
 app.get("/api/mine-transactions", (req, res) => {
-  transactionMinor.mine();
+  transactionMiner.mine();
   res.redirect("/api/blocks");
 });
 
