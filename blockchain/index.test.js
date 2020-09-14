@@ -121,10 +121,15 @@ describe("Blockchain", () => {
 
     describe("when the new chain is longer", () => {
       beforeEach(() => {
-        newBlockchain.addBlock({ data: "foo" });
-        newBlockchain.addBlock({ data: "bar" });
-        newBlockchain.addBlock({ data: "baz" });
-        newBlockchain.addBlock({ data: "xul" });
+        for (let i = 0; i < 4; i++) {
+          wallet = new Wallet();
+          transaction = wallet.createTransaction({
+            recipient: `test-recipient-${i}`,
+            amount: 65,
+          });
+          rewardTransaction = Transaction.reward({ minerWallet: wallet });
+          newBlockchain.addBlock({ data: [transaction, rewardTransaction] });
+        }
       });
 
       describe("when the chain is invalid", () => {
