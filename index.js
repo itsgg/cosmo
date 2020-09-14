@@ -68,6 +68,17 @@ app.get("/api/mine-transactions", (req, res) => {
   res.redirect("/api/blocks");
 });
 
+app.get("/api/wallet-info", (req, res) => {
+  const address = wallet.publicKey;
+  res.json({
+    address,
+    balance: Wallet.calculateBalance({
+      chain: blockchain.chain,
+      address,
+    }),
+  });
+});
+
 const syncWithRootState = () => {
   request(
     {
